@@ -22,6 +22,15 @@ export default class Nav extends Component {
               <li className="nav-item">
                 <Link className="nav-link" to="/contributions">Contributions</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/todolist">Todo List</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/signup">Signup</Link>
+              </li>
              
             </ul>
           </div>
