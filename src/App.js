@@ -7,6 +7,7 @@ import Contributions from './Contributions'
 import TodoList from './components/TodoList'
 import Login from './Login'
 import SignUp from './SignUp'
+import CreatePost from './CreatePost'
 
 export default class App extends Component {
   constructor () {
@@ -40,6 +41,7 @@ export default class App extends Component {
             <Route path='/todolist' element={<TodoList todolist={this.state.todolist} />}/>
             <Route path='/login' element={<Login logMeIn={this.logMeIn}/>}/>
             <Route path='/signup' element={<SignUp />}/>
+            <Route path='/posts/create' element={<CreatePost user={this.state.user} />}/>
 
           </Routes>
 
