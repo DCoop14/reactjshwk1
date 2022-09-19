@@ -1,39 +1,66 @@
 import React, { Component } from 'react'
+import ToDoItem from './ToDoItem';
 
-export default class TodoList extends Component {
+export default class ToDoList extends Component {
   constructor() {
     super();
-    //initial state
     this.state = {
-      todos: []
+      todoItems : []
+
     }
-   }
-  
-  
-  
-  
+  };
+
+  addToList = (e) => {
+    e.preventDefault();
+    const thingToDo = e.target.thing.value
+    // option 1: create a copy, mutate the copy, then use setter function
+    // const copy = this.state.todoItems.slice()
+    // copy.push(thingToDo)
+    // this.setState({todoItems: copy})
+    // option 2: spread operator
+    // const copy = [...this.state.todoItems, thingToDo]
+    // this.setState({todoItems: copy})
+    //option 3: concantenation
+    const obj = {
+      text: thingToDo,
+      complete: false
+    }
+    this.setState({todoItems: this.state.todoItems.concat([obj])})
+
+  };
+
+  removeFromList = (index) => {
+    const newList = [...this.state.todoItems]
+    newList.splice(index, 1)
+    this.setState({todoItems: newList})
+  };
+
+  markComplete = (newObj, index) => {
+    const newList = this.state.todoItems.slice()
+    newList.splice(index, 1, newObj)
+    this.setState({todoItems: newList})
+  };
+ 
+
+  showList = () => {
+    return this.state.todoItems.map((t, i) => <ToDoItem key={i} obj={t} index={i} markComplete={this.markComplete} removeFromList={this.removeFromList}></ToDoItem>)
+
+  }
+
+
+
   render() {
     return (
-    <div>
-        {this.state.todos.map(() =>{
-          return(
-        <div class = "container m-5">
-            <h3>Todo List</h3>
-            <br></br>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Add Task</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="enter new task"/>
-            </div>
-                <button type='submit' class="btn btn-outline-info">Add</button>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                </div>
-          )
-        })}
-    {this.props.TodoList}
-    </div>
+      <div>
+        <form onSubmit={(e)=>{this.addToList(e)}}>
+          <input name='thing'/>
+          <button>Add To List</button>
+
+        </form>
+
+        {this.showList()}  
+
+      </div>
     )
   }
 }
